@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="ISO-8859-1">
     <title>Subscription Management System</title>
@@ -14,7 +14,7 @@
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="#">Subscription Management System</a>
+    <a class="navbar-brand" th:href="@{/user/clients}">Subscription Management System</a>
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -25,10 +25,23 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/clients}">Subscription Management</a>
+                <a class="nav-link" th:href="@{/user/clients}">Subscription Management</a>
             </li>
         </ul>
     </div>
+    <ul class="navbar-nav" >
+        <li class="nav-item dropdown" >
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+               th:text="${#authentication.name}"></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <form method="post" th:action="@{/logout}">
+                        <button class="dropdown-item" type="submit">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    </ul>
 </nav>
 <br>
 <br>
@@ -37,7 +50,7 @@
         <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class = "text-center"> Update Subscription </h1>
             <div class = "card-body">
-                <form th:action="@{/abonnements/{id}(id=${abonnement.id})}" th:object="${abonnement}" method="POST">
+                <form th:action="@{/admin/abonnements/{id}(id=${abonnement.id})}" th:object="${abonnement}" method="POST">
                     <div  class ="form-group">
                         <label for="date"> Subscription Date</label>
                         <input

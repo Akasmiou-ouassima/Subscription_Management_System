@@ -7,6 +7,7 @@ import ma.enset.subscription_mangement_system.entities.Client;
 import ma.enset.subscription_mangement_system.repositories.AbonnementRepository;
 import ma.enset.subscription_mangement_system.repositories.ClientRepository;
 import ma.enset.subscription_mangement_system.service.IAbonnementService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,19 +30,14 @@ public class AbonnementController {
     }
 
     private ClientRepository clientRepository;
-
-
-
-
-
-    @GetMapping("/abonnements/{id}")
+    @GetMapping("/user/abonnements/{id}")
     public String listAbonnements(Model model, @PathVariable Long id) {
         List<Abonnement> abonnements = abonnementService.getByClient_Id(id);
         model.addAttribute("abonnements", abonnements);
         model.addAttribute("id",id);
         return "abonnements";
     }
-    @GetMapping("/abonnements/new/{id}")
+    @GetMapping("/user/abonnements/new/{id}")
     public String createAbonnementForm(Model model,@PathVariable long id) {
         Abonnement abonnement = new Abonnement();
         model.addAttribute("abonnement", abonnement);
@@ -55,22 +51,24 @@ public class AbonnementController {
         model.addAttribute("abonnements", abonnements);
         return "abonnements";
     }*/
-    @PostMapping("/abonnements")
+    @PostMapping("/user/abonnements")
     public String saveAbonnement(@Valid Abonnement abonnement, Model model, @RequestParam Long clientId) {
         Client client = clientRepository.findById(clientId).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + clientId));
         abonnement.setClient(client);
         model.addAttribute("abonnement", abonnement);
         abonnementService.saveAbonnement(abonnement);
-       return "redirect:/abonnements/"+clientId;
+       return "redirect:/user/abonnements/"+clientId;
     }
 
-    @GetMapping("/abonnements/edit/{id}")
+    @GetMapping("/admin/abonnements/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editAbonnementForm(@PathVariable Long id, Model model,@RequestParam(value = "clientId") long clientId) {
         model.addAttribute("abonnement", abonnementService.getAbonnementById(id));
         model.addAttribute("clientId",clientId);
         return "edit_abonnement";
     }
-    @PostMapping("/abonnements/{id}")
+    @PostMapping("/admin/abonnements/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String updateAbonnement(@PathVariable Long id,
                                    @Valid Abonnement abonnement,
                                    Model model,@RequestParam long clientId) {
@@ -82,11 +80,12 @@ public class AbonnementController {
         existingabonnement.setSolde(abonnement.getSolde());
         existingabonnement.setMontant(abonnement.getMontant());
         abonnementService.updateAbonnement(existingabonnement);
-        return "redirect:/abonnements/"+clientId;
+        return "redirect:/user/abonnements/"+clientId;
     }
-    @GetMapping("/deleteAbonnement/{id}")
+    @GetMapping("/admin/deleteAbonnement/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteAbonnement(@PathVariable Long id,@RequestParam(value = "clientId") long clientId) {
         abonnementService.deleteAbonnementById(id);
-        return "redirect:/abonnements/"+clientId;
+        return "redirect:/user/abonnements/"+clientId;
     }
 }

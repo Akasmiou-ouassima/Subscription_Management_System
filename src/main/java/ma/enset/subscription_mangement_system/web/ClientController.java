@@ -8,11 +8,11 @@ import ma.enset.subscription_mangement_system.repositories.ClientRepository;
 import ma.enset.subscription_mangement_system.service.IAbonnementService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 public class ClientController {
@@ -25,7 +25,7 @@ public class ClientController {
     }
 
     // handler method to handle list clients and return mode and view
-    @GetMapping("/clients")
+    @GetMapping("/user/clients")
     public String listClients(Model model,@RequestParam(name = "page",defaultValue = "0") int page,
                               @RequestParam(name = "size",defaultValue = "8") int size,
                               @RequestParam(name = "keyword",defaultValue = "") String kw) {
@@ -37,7 +37,8 @@ public class ClientController {
         return "clients";
     }
 
-    @GetMapping("/clients/new")
+    @GetMapping("/admin/clients/new")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String createClientForm(Model model) {
 
         // create client object to hold client form data
@@ -47,20 +48,23 @@ public class ClientController {
 
     }
 
-    @PostMapping("/clients")
+    @PostMapping("/admin/clients")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String saveClient(@Valid Client client,Model model) {
         model.addAttribute("client",client);
         clientService.saveClient(client);
-        return "redirect:/clients";
+        return "redirect:/user/clients";
     }
 
-    @GetMapping("/clients/edit/{id}")
+    @GetMapping("/admin/clients/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editClientForm(@PathVariable Long id, Model model) {
         model.addAttribute("client", clientService.getClientById(id));
         return "edit_client";
     }
 
-    @PostMapping("/clients/{id}")
+    @PostMapping("/admin/clients/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String updateClient(@PathVariable Long id,
                                @Valid Client client,
                                 Model model) {
@@ -75,18 +79,20 @@ public class ClientController {
 
         // save updated client object
         clientService.updateClient(existingClient);
-        return "redirect:/clients";
+        return "redirect:/user/clients";
     }
 
     // handler method to handle delete client request
 
-    @GetMapping("/clients/{id}")
+    @GetMapping("/admin/clients/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteClient(@PathVariable Long id,String keyword, int page) {
         clientService.deleteClientById(id);
-        return "redirect:/clients?page="+page+"&keyword="+keyword;
+        return "redirect:/user/clients?page="+page+"&keyword="+keyword;
     }
     @GetMapping("/")
     public String home(){
-        return "redirect:/clients";
+        return "redirect:/user/clients";
     }
+
 }

@@ -17,11 +17,8 @@ public class Abonnement {
     private Date dateAb;
     @Enumerated(EnumType.STRING)
     private TYPE typeAb;
-
     private Float solde;
-
     private Float montant;
     @ManyToOne
     private Client client;
-
 }

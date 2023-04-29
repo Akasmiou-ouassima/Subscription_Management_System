@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Authentification</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+  <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/webjars/bootstrap-icons/1.10.3/font/bootstrap-icons.css">
+
+
+
+
+
+  <style>
+   body{
+     font-family: 'Poppins', sans-serif;
+     background-color: #ffffff;
+   }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins',sans-serif;
+    }
+    .container{
+      max-width: 440px;
+      padding: 0 20px;
+      margin: 120px auto;
+    }
+    .wrapper{
+      width: 100%;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.1);
+    }
+    .wrapper .title{
+      height: 90px;
+      background: #00a6ff;
+      border-radius: 5px 5px 0 0;
+      color: #fff;
+      font-size: 30px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wrapper form{
+      padding: 30px 25px 25px 25px;
+    }
+   .form-control{
+     display: block;
+     width:100%;
+     font-size: 1rem;
+     font-weight: 400;
+     line-height:1.5;
+     border-color: #00a6ff !important;
+     border-style: solid !important;
+     border-width: 0 0 1px 0 !important;
+     padding: 0px !important;
+     color:#495057;
+     height: auto;
+     border-radius: 0;
+     background-color: #fff;
+     background-clip: padding-box;
+   }
+
+
+   .form-control:focus{
+     color: #495057;
+     background-color: #fff;
+     border-color: #fff;
+     outline: 0;
+     box-shadow: none;
+   }
+   .btn-class{
+     border-color: #00a6ff;
+     color: #00a6ff;
+   }
+   .btn-class:hover{
+     background-color: #00a6ff;
+     color: #fff;
+   }
+   .button-container {
+       display: flex;
+       justify-content: center;
+   }
+
+    .wrapper form .button input{
+      color: #fff;
+      font-size: 20px;
+      font-weight: 500;
+      padding-left: 0px;
+      background: #00a6ff;
+      border: 1px solid #55a3ce;
+      cursor: pointer;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="wrapper">
+    <div class="title"><span>Login Form</span></div>
+    <form th:action="@{/login}" method="post">
+       <p th:if="${error}" class="error">UserName & Password Incorrect</p>
+      <div class="form-group ">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" class="form-control mt-3">
+      </div>
+      <br>
+      <br>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control mt-3">
+      </div>
+      <br>
+      <br>
+        <div class="button-container">
+            <button class="btn btn-class ms-md-2" type="submit">Login</button>
+        </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
+
