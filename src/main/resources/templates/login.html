@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Authentification</title>
@@ -11,11 +10,6 @@
           crossorigin="anonymous">
   <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="/webjars/bootstrap-icons/1.10.3/font/bootstrap-icons.css">
-
-
-
-
-
   <style>
    body{
      font-family: 'Poppins', sans-serif;
@@ -29,7 +23,7 @@
       font-family: 'Poppins',sans-serif;
     }
     .container{
-      max-width: 440px;
+      max-width: 800px;
       padding: 0 20px;
       margin: 120px auto;
     }
@@ -81,6 +75,7 @@
    .btn-class{
      border-color: #00a6ff;
      color: #00a6ff;
+     width: 100px;
    }
    .btn-class:hover{
      background-color: #00a6ff;
@@ -90,7 +85,6 @@
        display: flex;
        justify-content: center;
    }
-
     .wrapper form .button input{
       color: #fff;
       font-size: 20px;
@@ -100,8 +94,6 @@
       border: 1px solid #55a3ce;
       cursor: pointer;
     }
-
-
   </style>
 </head>
 <body>
@@ -123,7 +115,7 @@
       <br>
       <br>
         <div class="button-container">
-            <button class="btn btn-class ms-md-2" type="submit">Login</button>
+            <button class="btn btn-class ms-lg-2" type="submit">Login</button>
         </div>
     </form>
   </div>

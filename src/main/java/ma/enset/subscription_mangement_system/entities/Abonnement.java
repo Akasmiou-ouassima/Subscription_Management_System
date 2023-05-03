@@ -1,5 +1,6 @@
 package ma.enset.subscription_mangement_system.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +20,7 @@ public class Abonnement {
     private TYPE typeAb;
     private Float solde;
     private Float montant;
+    @JsonIgnore
     @ManyToOne
     private Client client;
 }

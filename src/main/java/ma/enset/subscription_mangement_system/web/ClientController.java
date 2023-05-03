@@ -36,7 +36,6 @@ public class ClientController {
         model.addAttribute("keyword",kw);
         return "clients";
     }
-
     @GetMapping("/admin/clients/new")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String createClientForm(Model model) {

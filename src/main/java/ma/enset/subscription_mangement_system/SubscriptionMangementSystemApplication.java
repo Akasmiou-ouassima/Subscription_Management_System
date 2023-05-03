@@ -21,7 +21,7 @@ public class SubscriptionMangementSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(SubscriptionMangementSystemApplication.class, args);
     }
-    @Bean
+    //@Bean
     CommandLineRunner start(ClientRepository clientRepository, AbonnementRepository abonnementRepository){
        return args -> {
             Stream.of("ouassima","Hanane","Mohamed").forEach(name ->{

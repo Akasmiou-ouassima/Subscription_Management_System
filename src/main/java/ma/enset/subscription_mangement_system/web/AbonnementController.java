@@ -22,14 +22,13 @@ import java.util.List;
 public class AbonnementController {
     private IAbonnementService abonnementService;
     private AbonnementRepository abonnementRepository;
+    private ClientRepository clientRepository;
 
     public AbonnementController(IAbonnementService abonnementService, AbonnementRepository abonnementRepository, ClientRepository clientRepository) {
         this.abonnementService = abonnementService;
         this.abonnementRepository = abonnementRepository;
         this.clientRepository = clientRepository;
     }
-
-    private ClientRepository clientRepository;
     @GetMapping("/user/abonnements/{id}")
     public String listAbonnements(Model model, @PathVariable Long id) {
         List<Abonnement> abonnements = abonnementService.getByClient_Id(id);
